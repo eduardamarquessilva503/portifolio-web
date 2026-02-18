@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio | Maria Eduarda Marques Da Silva</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --card-bg: #0f0f0f;
+            --primary: #8668cec0;
+            --secondary: #d946ef;
+            --text-main: #ffffff;
+            --text-dim: #a1a1aa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            width: 100%;
+        }
+
+        /* --- NAVEGAÇÃO --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.2rem 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo { font-weight: 800; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .logo span { color: var(--primary); }
+        nav ul { display: flex; list-style: none; gap: clamp(15px, 3vw, 30px); }
+        nav ul a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        nav ul a:hover { color: var(--text-main); }
+
+        /* --- HERO SECTION --- */
+        .hero-central {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            padding: 100px 5% 40px;
+        }
+
+        .social-icons-top { display: flex; gap: 25px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center; }
+        
+        .icon-circle {
+            width: 75px; height: 75px; 
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+        .icon-circle:hover { 
+            transform: translateY(-8px) scale(1.1); 
+            background: var(--primary); 
+            box-shadow: 0 0 30px var(--primary);
+            border-color: white;
+        }
+
+        .hero-central h1 { 
+            font-size: clamp(2.5rem, 8vw, 4.5rem); 
+            font-weight: 800; margin-bottom: 10px; line-height: 1.1; 
+        }
+        .hero-central h2 { 
+            font-size: clamp(1.5rem, 5vw, 2.5rem); 
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 40px;
+        }
+
+        /* --- SEÇÕES GERAIS --- */
+        section { padding: clamp(60px, 10vh, 100px) 10%; }
+
+        /* --- SOBRE MIM --- */
+        .about-section {
+            display: flex; align-items: center; justify-content: center;
+            gap: clamp(30px, 5vw, 80px);
+            min-height: 80vh;
+            flex-wrap: wrap;
+        }
+        .about-text { flex: 1; min-width: 300px; max-width: 600px; }
+        .about-text h3 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 25px; line-height: 1.2; }
+        .about-text p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 30px; }
+
+        .quote-box {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--primary);
+            padding: 25px;
+            border-radius: 12px;
+            font-style: italic;
+            margin-bottom: 35px;
+            color: var(--text-dim);
+        }
+
+        .photo-container {
+            position: relative;
+            width: clamp(280px, 40vw, 380px);
+            aspect-ratio: 1/1;
+            flex-shrink: 0;
+        }
+        .photo-glow {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            padding: 6px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 60px rgba(139, 92, 246, 0.2);
+        }
+        .photo-glow img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--bg);
+        }
+
+        /* --- BOTÕES --- */
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 28px; border-radius: 10px;
+            text-decoration: none; font-weight: 700; font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: var(--transition);
+            border: none; cursor: pointer;
+        }
+        .btn-main { background: var(--primary); color: white; }
+        .btn-outline { border: 1px solid rgba(255,255,255,0.1); color: white; background: transparent; }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+        /* --- SKILLS --- */
+        .skills { background: #080808; text-align: center; }
+        .grid-skills {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 20px; margin-top: 50px; max-width: 1100px; margin: 50px auto 0;
+        }
+        .skill-card {
+            background: var(--card-bg); width: clamp(130px, 20vw, 160px); 
+            padding: 30px 10px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05); transition: var(--transition);
+        }
+        .skill-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
+        /* --- PROJETOS --- */
+        .project-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; margin-top: 50px;
+        }
+        .project-card {
+            background: var(--card-bg); border-radius: 20px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05); transition: var(--transition);
+            height: 100%; display: flex; flex-direction: column;
+        }
+        .project-img { width: 100%; height: 200px; background: #1a1a1a; object-fit: cover; }
+        .project-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .tag { font-size: 0.7rem; background: rgba(139, 92, 246, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 50px; margin-right: 5px; }
+
+        /* --- CONTATO --- */
+        .contact { background: #080808; }
+        .contact-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .contact-card { background: var(--card-bg); padding: clamp(25px, 5vw, 45px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 15px; background: #050505; border: 1px solid #222; 
+            border-radius: 10px; color: #fff; margin-bottom: 15px; outline: none; transition: 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+        
+        .social-item {
+            background: #111; padding: 18px; border-radius: 12px; text-decoration: none; 
+            color: white; display: flex; flex-direction: column; border: 1px solid transparent; transition: 0.3s; margin-bottom: 15px;
+        }
+        .social-item:hover { border-color: var(--primary); background: #161616; }
+
+        /* --- TOAST NOTIFICATION --- */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--primary);
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2001;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s, bottom 0.3s;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 5%; }
+            nav ul { display: none; }
+            .about-section { text-align: center; }
+            .btn-group { justify-content: center; }
+            section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">EDUARDA<span>DESIGN</span></div>
+        <ul>
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <div id="toast">✅ E-mail copiado para a área de transferência!</div>
+
+    <section class="hero-central" id="inicio">
+        <div class="social-icons-top">
+            <a href="https://www.linkedin.com/in/eduarda-marques-869a68392/" target="_blank" class="icon-circle">LinkedIn</a>
+            <a href="https://github.com/eduardamarquessilva503" target="_blank" class="icon-circle">GitHub</a>
+            <a href="mailto:eduardamarquessilva503@gmail.com" class="icon-circle" onclick="copyEmailAndShowToast(event, 'eduardamarquessilva503@gmail.com')">Email</a>
+        </div>
+        <h1>Maria Eduarda</h1>
+        <h2>Front-end Developer</h2>
+        
+        <div class="btn-group">
+            <a href="Curriculo_Eduarda_Atualizado.pdf" download="Curriculo_Eduarda_Atualizado.pdf" class="btn btn-main">📄 Download CV</a>
+            <a href="#contato" class="btn btn-outline">👤 Contate Me</a>
+        </div>
+    </section>
+
+    <section class="about-section" id="sobre">
+        <div class="about-text">
+            <h3>Criando experiências <br> <span style="color:var(--primary)">digitais incríveis.</span></h3>
+            <p>
+                Sou Maria Eduarda Marques da Silva, estudante de Informática para Internet e apaixonada por tecnologia. Atuo como desenvolvedora front-end, com foco na criação de interfaces funcionais, intuitivas e visualmente atraentes. Em meus projetos, utilizo tecnologias como HTML, CSS e JavaScript, sempre buscando unir lógica, criatividade e boas práticas de código. Estou em constante aprendizado e aberta a novos desafios para evoluir na área de desenvolvimento web.
+            </p>
+            <div class="quote-box">"O design não é apenas o que parece, mas sim como funciona."</div>
+            <div class="btn-group">
+                <a href="#contato" class="btn btn-main">Mande um Oi</a>
+                <a href="#projetos" class="btn btn-outline">Ver Trabalhos</a>
+            </div>
+        </div>
+        <div class="photo-container">
+            <div class="photo-glow">
+                <img src="minha-foto.jpg" alt="Maria Eduarda">
+            </div>
+        </div>
+    </section>
+
+    <section class="skills">
+        <h2>Habilidades Técnicas</h2>
+        <div class="grid-skills">
+            <div class="skill-card"><h4>HTML5</h4></div>
+            <div class="skill-card"><h4>CSS3</h4></div>
+            <div class="skill-card"><h4>JavaScript</h4></div>
+            <div class="skill-card"><h4>MySQL</h4></div>
+            <div class="skill-card"><h4>Git/GitHub</h4></div>
+        </div>
+    </section>
+
+    <section class="projects" id="projetos">
+        <h2 style="text-align: center; margin-bottom: 40px;">Portfólio</h2>
+        <div class="project-grid" id="project-container"></div>
+    </section>
+
+    <section class="contact" id="contato">
+        <div class="contact-container">
+            <div class="contact-card">
+                <h3 style="color:var(--primary); margin-bottom: 20px;">Vamos conversar?</h3>
+                <form id="portfolio-form" class="form-group">
+                    <input type="text" name="nome" placeholder="Nome" required>
+                    <input type="email" name="email" placeholder="E-mail" required>
+                    <textarea name="mensagem" placeholder="Mensagem..." rows="4" required></textarea>
+                    
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="Novo contato recebido pelo Portfólio!">
+                    
+                    <button type="submit" class="btn btn-main" style="width:100%; justify-content: center;">Enviar ✈️</button>
+                </form>
+            </div>
+            <div class="contact-card">
+                <h3 style="color:var(--primary); margin-bottom: 20px;">Conecte-se</h3>
+                <div class="social-grid">
+                    <a href="https://www.linkedin.com/in/eduarda-marques-869a68392/" target="_blank" class="social-item">
+                        <span>LinkedIn</span><small>eduarda-marques-869a68392</small>
+                    </a>
+                    <a href="https://github.com/eduardamarquessilva503" target="_blank" class="social-item">
+                        <span>GitHub</span><small>@eduardamarquessilva503</small>
+                    </a>
+                    <a href="mailto:eduardamarquessilva503@gmail.com" class="social-item" onclick="copyEmailAndShowToast(event, 'eduardamarquessilva503@gmail.com')">
+                        <span>E-mail</span><small>eduardamarquessilva503@gmail.com</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function copyEmailAndShowToast(event, email) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(email).catch(err => console.log('Erro ao copiar: ', err));
+            } else {
+                const tempInput = document.createElement("input");
+                tempInput.value = email;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try { document.execCommand("copy"); } catch(err) { console.log('Erro no fallback: ', err); }
+                document.body.removeChild(tempInput);
+            }
+
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            
+            setTimeout(function() {
+                toast.className = toast.className.replace("show", "");
+            }, 3000);
+        }
+
+        const PortfolioManager = (() => {
+            const projects = [
+                {
+                    title: "Estoque Pro",
+                    desc: "Sistema web interativo para gerenciamento de estoque e controle de produtos.",
+                    techs: ["PHP", "MySQL", "CSS"],
+                    img: "estoque-pro.png",
+                    link: "https://github.com/eduardamarquessilva503/estoque-pro"
+                },
+                {
+                    title: "Outer Banks Fan Site",
+                    desc: "Projeto front-end desenvolvido em homenagem à série Outer Banks.",
+                    techs: ["HTML", "CSS", "JS"],
+                    img: "outerbanks.png",
+                    link: "https://github.com/eduardamarquessilva503/outer-banks-fan-site"
+                },
+                {
+                    title: "Gomes Transporte",
+                    desc: "Site institucional focado na área de transportes e logística.",
+                    techs: ["HTML", "CSS", "JS"],
+                    img: "gomestransporte.png",
+                    link: "https://github.com/eduardamarquessilva503/gomestransporte"
+                }
+            ];
+
+            const renderCards = () => {
+                const container = document.getElementById('project-container');
+                if (!container) return;
+                container.innerHTML = projects.map(proj => `
+                    <article class="project-card">
+                        <img src="${proj.img}" alt="${proj.title}" class="project-img">
+                        <div class="project-info">
+                            <div style="margin-bottom: 10px;">${proj.techs.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                            <h4 style="margin-bottom: 10px;">${proj.title}</h4>
+                            <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px;">${proj.desc}</p>
+                            <a href="${proj.link}" target="_blank" class="btn btn-outline" style="padding: 8px 15px; font-size: 0.8rem;">Ver Detalhes no GitHub</a>
+                        </div>
+                    </article>
+                `).join('');
+            };
+
+            const initFormSubmit = () => {
+                const form = document.getElementById('portfolio-form');
+                if (!form) return;
+
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const btn = form.querySelector('button');
+                    const originalText = btn.innerHTML;
+                    
+                    btn.innerHTML = 'Enviando... ⏳';
+                    btn.disabled = true;
+                    btn.style.opacity = '0.7';
+
+                    const formData = new FormData(this);
+
+                    fetch('https://formsubmit.co/ajax/eduardamarquessilva503@gmail.com', {
+                        method: 'POST',
+                        headers: { 
+                            'Accept': 'application/json'
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        btn.innerHTML = 'Mensagem Enviada! ✅';
+                        btn.style.backgroundColor = '#10b981';
+                        btn.style.borderColor = '#10b981';
+                        form.reset();
+
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                            btn.style.backgroundColor = 'var(--primary)';
+                            btn.style.borderColor = 'transparent';
+                            btn.style.opacity = '1';
+                        }, 4000);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        btn.innerHTML = 'Erro ao enviar ❌';
+                        btn.style.backgroundColor = '#ef4444';
+
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                            btn.style.backgroundColor = 'var(--primary)';
+                            btn.style.opacity = '1';
+                        }, 4000);
+                    });
+                });
+            };
+
+            return {
+                init: () => {
+                    renderCards();
+                    initFormSubmit();
+                    
+                    const sr = ScrollReveal({ origin: 'bottom', distance: '30px', duration: 1000, delay: 200 });
+                    sr.reveal('.hero-central h1');
+                    sr.reveal('.skill-card', { interval: 80 });
+                    sr.reveal('.project-card', { interval: 100 });
+                }
+            };
+        })();
+
+        document.addEventListener('DOMContentLoaded', PortfolioManager.init);
+    </script>
+</body>
+</html>
