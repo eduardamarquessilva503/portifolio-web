@@ -285,7 +285,8 @@
             <div class="skill-card"><h4>HTML5</h4></div>
             <div class="skill-card"><h4>CSS3</h4></div>
             <div class="skill-card"><h4>JavaScript</h4></div>
-            <div class="skill-card"><h4>MySQL</h4></div>
+            <div class="skill-card"><h4>React.js</h4></div>
+            <div class="skill-card"><h4>PHP / MySQL</h4></div>
             <div class="skill-card"><h4>Git/GitHub</h4></div>
         </div>
     </section>
@@ -300,12 +301,13 @@
             <div class="contact-card">
                 <h3 style="color:var(--primary); margin-bottom: 20px;">Vamos conversar?</h3>
                 <form id="portfolio-form" class="form-group">
-                    <input type="text" name="nome" placeholder="Nome" required>
-                    <input type="email" name="email" placeholder="E-mail" required>
-                    <textarea name="mensagem" placeholder="Mensagem..." rows="4" required></textarea>
+                    <input type="hidden" name="access_key" value="8195bf55-a60e-46db-b569-0ffb3dea6cf5">
                     
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_subject" value="Novo contato recebido pelo Portfólio!">
+                    <input type="text" name="name" placeholder="Nome" required>
+                    <input type="email" name="email" placeholder="E-mail" required>
+                    <textarea name="message" placeholder="Mensagem..." rows="4" required></textarea>
+                    
+                    <input type="hidden" name="subject" value="Novo contato recebido pelo Portfólio!">
                     
                     <button type="submit" class="btn btn-main" style="width:100%; justify-content: center;">Enviar ✈️</button>
                 </form>
@@ -403,39 +405,42 @@
                     btn.disabled = true;
                     btn.style.opacity = '0.7';
 
-                    const formData = new FormData(this);
+                    const formData = new FormData(form);
+                    const object = Object.fromEntries(formData);
+                    const json = JSON.stringify(object);
 
-                    fetch('https://formsubmit.co/ajax/eduardamarquessilva503@gmail.com', {
+                    fetch('https://api.web3forms.com/submit', {
                         method: 'POST',
-                        headers: { 
+                        headers: {
+                            'Content-Type': 'application/json',
                             'Accept': 'application/json'
                         },
-                        body: formData
+                        body: json
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        btn.innerHTML = 'Mensagem Enviada! ✅';
-                        btn.style.backgroundColor = '#10b981';
-                        btn.style.borderColor = '#10b981';
-                        form.reset();
-
-                        setTimeout(() => {
-                            btn.innerHTML = originalText;
-                            btn.disabled = false;
-                            btn.style.backgroundColor = 'var(--primary)';
-                            btn.style.borderColor = 'transparent';
-                            btn.style.opacity = '1';
-                        }, 4000);
+                    .then(async (response) => {
+                        let jsonResponse = await response.json();
+                        if (response.status == 200) {
+                            btn.innerHTML = 'Mensagem Enviada! ✅';
+                            btn.style.backgroundColor = '#10b981';
+                            btn.style.borderColor = '#10b981';
+                            form.reset();
+                        } else {
+                            console.log(response);
+                            btn.innerHTML = 'Erro ao enviar ❌';
+                            btn.style.backgroundColor = '#ef4444';
+                        }
                     })
                     .catch(error => {
                         console.log(error);
                         btn.innerHTML = 'Erro ao enviar ❌';
                         btn.style.backgroundColor = '#ef4444';
-
+                    })
+                    .then(function() {
                         setTimeout(() => {
                             btn.innerHTML = originalText;
                             btn.disabled = false;
                             btn.style.backgroundColor = 'var(--primary)';
+                            btn.style.borderColor = 'transparent';
                             btn.style.opacity = '1';
                         }, 4000);
                     });
